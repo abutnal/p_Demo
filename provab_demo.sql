@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 06, 2019 at 05:01 PM
+-- Generation Time: Jan 12, 2019 at 01:51 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -47,11 +47,11 @@ INSERT INTO `category` (`category_id`, `category_name`, `created_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `order_tbl`
+-- Table structure for table `inventory`
 --
 
-CREATE TABLE `order_tbl` (
-  `order_id` int(11) NOT NULL,
+CREATE TABLE `inventory` (
+  `product_id` int(11) NOT NULL,
   `product_name` varchar(200) NOT NULL,
   `category_name` varchar(200) NOT NULL,
   `price` varchar(11) NOT NULL,
@@ -60,14 +60,14 @@ CREATE TABLE `order_tbl` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `order_tbl`
+-- Dumping data for table `inventory`
 --
 
-INSERT INTO `order_tbl` (`order_id`, `product_name`, `category_name`, `price`, `photo`, `created_at`) VALUES
+INSERT INTO `inventory` (`product_id`, `product_name`, `category_name`, `price`, `photo`, `created_at`) VALUES
 (18, 'Audi', 'Car', '555050', 'download.jpg', 'Jan 06 2019 8:15:45 pm'),
 (19, 'Suzuki Hero Electric', 'Bike', '150000', 'download (2).jpg', 'Jan 06 2019 8:16:34 pm'),
-(20, 'Kawasaki Harley Davidson', 'Bike', '200000', 'download (3).jpg', 'Jan 06 2019 8:17:48 pm'),
-(21, 'Cadillac', 'Car', '7978898', 'download (1).jpg', 'Jan 06 2019 8:21:06 pm');
+(20, 'LG ', 'TV', '25000', 'download (3).jpg', 'Jan 06 2019 8:17:48 pm'),
+(21, 'Cadillac', 'Car', '4000202', 'download (1).jpg', 'Jan 06 2019 8:21:06 pm');
 
 -- --------------------------------------------------------
 
@@ -114,6 +114,26 @@ INSERT INTO `product` (`product_id`, `product_name`, `category_id`, `created_at`
 (25, '1 Plus', 4, '07/01/2018'),
 (26, 'Motorola', 4, '07/01/2018');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `user_id` int(11) NOT NULL,
+  `fullname` varchar(100) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`user_id`, `fullname`, `username`, `password`) VALUES
+(1, 'Jyoti D', 'jyo@gmail.com', '123456');
+
 --
 -- Indexes for dumped tables
 --
@@ -125,16 +145,22 @@ ALTER TABLE `category`
   ADD PRIMARY KEY (`category_id`);
 
 --
--- Indexes for table `order_tbl`
+-- Indexes for table `inventory`
 --
-ALTER TABLE `order_tbl`
-  ADD PRIMARY KEY (`order_id`);
+ALTER TABLE `inventory`
+  ADD PRIMARY KEY (`product_id`);
 
 --
 -- Indexes for table `product`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`product_id`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`user_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -147,16 +173,22 @@ ALTER TABLE `category`
   MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `order_tbl`
+-- AUTO_INCREMENT for table `inventory`
 --
-ALTER TABLE `order_tbl`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+ALTER TABLE `inventory`
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
   MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -12,45 +12,38 @@
 	</style>
 </head>
 <body>
+	<?php 
+		session_start();
+		if (!empty($_SESSION['user_id'])) {
+			header('Location:dashboard.php');
+		}
+	?>
 	<div class="container">
 		<br><br>
 		<div class="row">
 			<div class="col-md-4 col-md-offset-4">
 				<div id="message"></div>
 				<div class="panel panel-primary">
-					<div class="panel-heading">Add New Order</div>
+					<div class="panel-heading">Fill your login  details</div>
 					<div class="panel-body">
-						<form action="controller.php" method="post" id="saveOrder" enctype="multipart/form-data">
-							<input type="hidden" name="saveOrder" id="saveOrder" value="saveOrder">
-							<input type="hidden" name="order_id" class="order_id">
+						<form action="controller.php" method="post" id="loginForm">
 							<div class="row">
 								<div class="col-md-12">
-									<div class="form-group">
-										<select name="category" id="category" placeholder="Select Category category_name" class="form-control">
-											<option>Select Category</option>
-										</select>
+									<div class="form-group"><input type="text" name="username" placeholder="User Name" id="username" class="form-control">
+										<div class="user_error"></div>
 									</div>
+									
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
-										<select name="product" id="product" class="form-control product_name">
-											<option>Select Product</option>
-										</select>
+										<input type="password" name="password" placeholder="Password" id="password" class="form-control">
+									<div class="pass_error"></div>
 									</div>
-								</div>
-								<div class="col-md-12">
-									<div class="form-group"><input type="text" name="price" placeholder="Enter Price" id="price" class="form-control price"></div>
-								</div>
-								<div class="col-md-12">
-									<div class="form-group">
-										<div id="image"></div>
-										<input type="hidden" name="path" class="photo">
-										<input type="file" name="photo" id="photo" class="form-control"></div>
+										
 									</div>
 									<div class="col-md-12">
 										<div class="form-group">
-											<a href="" id="cancel" class="btn btn-default pull-left">Cancel</a>
-											<input type="submit"  value="Save Product" class="btn btn-primary order pull-right"></div>
+											<input type="submit"  value="Login" name="login" class="btn btn-primary  pull-right"></div>
 									</div>
 								</div>
 							</form>
@@ -59,13 +52,6 @@
 				</div>
 			</div>
 
-			<!-- Data Table  -->
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2">
-					<table class="table table-bordered" id="table">
-					</table>
-				</div>
-			</div>
 		</div>
 	</body>
 	</html>

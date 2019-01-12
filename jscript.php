@@ -3,7 +3,7 @@ $(document).ready(function(){
 	$.ajax({
 		url: 'controller.php',
 		method: 'post',
-		data: {selectCategory:1},
+		data: {selectCategoryName:1},
 		success:function(response){
 			$('#category').html(response);
 			// console.log(response);
@@ -18,7 +18,7 @@ $(document).ready(function(){
 		$.ajax({
 			url: 'controller.php',
 			method: 'post',
-			data:{selectProduct:1, category_id:id},
+			data:{selectProductName:1, category_id:id},
 			success:function(response){
 				$('#product').html(response);
 				// console.log(response);
@@ -30,7 +30,7 @@ $(document).ready(function(){
 
 // Save Orders
 $(document).ready(function(){
-	$(document).on('submit', '#saveOrder', function(event){
+	$(document).on('submit', '#saveProduct', function(event){
 		event.preventDefault();
 		var cat = $('#category').val();
 		var product = $('#product').val();
@@ -76,7 +76,7 @@ function show(){
 	$.ajax({
 		url: 'controller.php',
 		method: 'post',
-		data: {selectOrder:1},
+		data: {selectAllProduct:1},
 		dataType:'json',
 		success:function(response){
 			$('#table').html(response);
@@ -90,12 +90,12 @@ $(document).ready(function(){
 	$(document).on('click', '#edit', function(event){
 		event.preventDefault();
 		$anchor = $(event.target);
-		var id = $anchor.attr('order-id');
+		var id = $anchor.attr('product-id');
 		$.ajax({
 			url: 'controller.php',
 			method: 'post',
 			dataType: 'json',
-			data:{OrderSelectOne:1, order_id:id},
+			data:{selectOneProduct:1, product_id:id},
 			success:function(response){
 				// console.log(response);
 				$.each(response, function(key, value){
@@ -106,18 +106,18 @@ $(document).ready(function(){
 					}
 				});
 				$('#cancel').show();
-				$('.order').val('Update');
-				$('.panel-heading').html('Update Order');
-				$("form#saveOrder").prop('id','updateOrder');
-				$("input#saveOrder").prop('name','updateOrder');
-				$("input#saveOrder").prop('id','updateOrder');
+				$('.product').val('Update Product');
+				$('.panel-heading').html('Update Product');
+				$("form#saveProduct").prop('id','updateProduct');
+				$("input#saveProduct").prop('name','updateProduct');
+				$("input#saveProduct").prop('id','updateProduct');
 			} 
 		});
 	});
 
 	$(document).on('click','#cancel', function(event){
 		// event.preventDefault();
-		$('#saveOrder')[0].reset();
+		$('#saveProduct')[0].reset();
 
 		$('#cancel').hide();
 	});
@@ -125,7 +125,7 @@ $(document).ready(function(){
 
 // UPDATE RECORDS
 $(document).ready(function(){
-	$(document).on('submit', '#updateOrder', function(event){
+	$(document).on('submit', '#updateProduct', function(event){
 		event.preventDefault();
 		var cat = $('#category').val();
 		var product = $('#product').val();
@@ -167,16 +167,59 @@ $(document).ready(function(){
     	}
     	else{
 		$anchor = $(event.target);
-		var id = $anchor.attr('order-id');
+		var id = $anchor.attr('product-id');
 		 $.ajax({
 		 	url: 'controller.php',
 			method: 'post',
-			data: {orderDelete:1, order_id:id},
+			data: {productDelete:1, product_id:id},
 			success:function(response){
 				$('#message').html(response);
 				show();
 			}
 		 });
+		}
+	});
+});
+
+
+$(document).ready(function(){
+	$(document).on('submit', '#loginForm', function(event){
+	event.preventDefault();
+	 var username = $('#username').val();
+	 var password = $('#password').val();
+	 if (username==null || username=='') {
+	 	alert('Username is required');
+	 }
+	 else if(password==null || password==''){
+	 	alert('Password is required');
+	 }
+	 else{
+	   $.ajax({
+	   		url: 'controller.php',
+	   		method: 'post',
+	   		data: {login:1,username:username,password:password},
+	   		success:function(response){
+	   			if (response == 'fdlsgfmnlffsofiosdfn09iwrweoriw93') {
+	   				window.location.href ='dashboard.php';
+	   			}
+	   			else{
+	   				$('#message').html('<div class="alert alert-dismissible alert-warning">  <button type="button" class="close" data-dismiss="alert">&times;</button><strong> Username or password wrong</strong> </div>');
+	   			}
+	   		}
+	   });
+	}
+	});
+});
+
+// DISPLAY ADMIN NAME
+$(document).ready(function(){
+	$.ajax({
+		url: 'controller.php',
+		method: 'post',
+		dataType:'json',
+		data: {admin_name:1},
+		success:function(response){
+			$('#admin_name').html(response);
 		}
 	});
 });

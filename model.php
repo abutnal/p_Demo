@@ -18,8 +18,9 @@ class CrudOperation extends Database{
 		$sql = "";
 		$condition = "";
 		foreach ($where as $key => $value) {
-			$condition .= $key.="='".$value."'";
+			$condition .= $key.="='".$value."' AND ";
 		}
+		$condition = substr($condition, 0,-5);
 		$sql .="SELECT * FROM ".$table." WHERE ".$condition;
 		$array = array();
 		$query = mysqli_query($this->con, $sql);
@@ -74,5 +75,8 @@ class CrudOperation extends Database{
 			return true;
 		}
 	}
+
+
+
 }
 $objCrud = new CrudOperation();
